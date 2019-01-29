@@ -32,3 +32,24 @@
 body{
 	overflow: scroll;
 }
+
+.botoes {
+	margin-top: 10px;
+}
+
+#erro{
+    color: red;
+    display: none;
+}
+
+#spinner{
+    display: none;
+}
+
+#frase-id{
+    width: 40px;
+}
+
+#botao-sync{
+    float: right;
+}
