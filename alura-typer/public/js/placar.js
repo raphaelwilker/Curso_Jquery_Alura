@@ -56,5 +56,58 @@ function mostraPlacar(){
 }
 
 function sincronizaPlacar(){
-    
+    let placar = [];
+    let linhas = $('tbody>tr');
+    linhas.each(function(){
+        
+        let usuario = $(this).find('td:nth-child(1)').text();
+        let palavras  = $(this).find('td:nth-child(2)').text();
+        
+        let score = {
+            usuario:usuario,
+            pontos:palavras
+        }
+
+        placar.push(score);
+    });
+
+    let data = {
+        placar:placar
+    }
+
+    $.post("http://localhost:3000/placar",data,function(){
+        console.log("Salvou o placar no servidor.");
+        $('#spinner').toggle();
+    })
+    .fail(function(){
+        $('#erro').slideDown();
+        setTimeout(function(){
+            $('#erro').slideToggle();
+        },2000);
+    })
+    .always(function(){
+        $('#spinner').toggle();
+    });
+
+}
+
+function atualizaPlacar() {
+
+    $.get("http://localhost:3000/placar",function(data){
+        $(data).each(function(){
+            let linha = novaLinha(this.usuario,this.pontos);
+            linha.find(".botao-remover").click(removeLinha);
+            $('tbody').append(linha);
+        });
+        $('#spinner').toggle();
+    })
+    .fail(function(){
+       $('#erro').slideDown();
+       setTimeout(function(){
+           $('#erro').slideToggle();
+       },2000);
+    })
+    .always(function(){
+        $('#spinner').toggle();
+    });
 }

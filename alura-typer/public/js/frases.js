@@ -34,7 +34,7 @@ function buscaFrase(){
 	let dados = { id: fraseId};
 	$('#spinner').show();
 	$('body').css('cursor','wait');
-	$.get("http://localhost:3000/frases",dados,trocaFraseAleatoria)
+	$.get("http://localhost:3000/frases",dados,trocaFrase)
 	.fail(function(){
 		$('#erro').slideDown();
 		setTimeout(function(){
